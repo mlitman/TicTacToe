@@ -76,4 +76,10 @@ public class MainActivity extends AppCompatActivity
         Intent i = new Intent(this, ScrollViewExample.class);
         this.startActivity(i);
     }
+
+    public void onTowersOfHanoiButtonClicked(View v)
+    {
+        Intent i = new Intent(this, TowersOfHanoi.class);
+        this.startActivity(i);
+    }
 }

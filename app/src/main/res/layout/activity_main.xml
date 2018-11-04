@@ -124,5 +124,12 @@
             android:layout_height="wrap_content"
             android:onClick="onScrollViewExampleButtonClicked"
             android:text="ScrollView Example" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTowersOfHanoiButtonClicked"
+            android:text="Towers Of Hanoi" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

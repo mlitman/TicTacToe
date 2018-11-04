@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class ScrollViewExample extends AppCompatActivity
 {
-    private ViewGroup svContainer;
+    private ViewGroup svContainer, svContainer2;
     private int count = 0;
     private EditText numRowsET;
 
@@ -21,6 +21,7 @@ public class ScrollViewExample extends AppCompatActivity
         setContentView(R.layout.activity_scroll_view_example);
 
         this.svContainer = (ViewGroup)this.findViewById(R.id.svContainer);
+        this.svContainer2 = (ViewGroup)this.findViewById(R.id.svContainer2);
         this.numRowsET = (EditText)this.findViewById(R.id.numRowsET);
     }
 
@@ -34,11 +35,11 @@ public class ScrollViewExample extends AppCompatActivity
             tv.setText("TextView " + this.count);
             if(this.count % 2 == 0)
             {
-                this.svContainer.addView(tv, 0);
+                this.svContainer.addView(tv);
             }
             else
             {
-                this.svContainer.addView(tv);
+                this.svContainer2.addView(tv);
             }
             this.count++;
         }

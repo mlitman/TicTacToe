@@ -1,13 +1,18 @@
 package com.example.awesomefat.tictactoe;
 
+import android.icu.lang.UCharacter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.Arrays;
 
 public class TowersOfHanoi extends AppCompatActivity
 {
@@ -43,15 +48,37 @@ public class TowersOfHanoi extends AppCompatActivity
         this.tower2Button.setText(s);
     }
 
+    private int indexOf(Object[] ar, Object o)
+    {
+        for(int i = 0; i < ar.length; i++)
+        {
+            if(ar[i] == o)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private ViewGroup findTowerGivenButton(Button b)
+    {
+        //search the buttons and return the tower associated with that button
+        Button[] towerButtons = {this.tower0Button, this.tower1Button, this.tower2Button};
+        ViewGroup[] towers = {this.tower0, this.tower1, this.tower2};
+        int pos = this.indexOf(towerButtons, b);
+        return towers[pos];
+    }
+
     public void onTowerButtonPressed(View v)
     {
         Button b = (Button)v;
+        ViewGroup tower = this.findTowerGivenButton(b);
         if(this.selectSource)
         {
-            View diskToRemove = this.tower0.getChildAt(0);
+            View diskToRemove = tower.getChildAt(0);
             if(diskToRemove != null)
             {
-                this.tower0.removeViewAt(0);
+                tower.removeViewAt(0);
                 this.holdingZone.addView(diskToRemove);
                 this.setTowerButtonText("DEST");
                 this.selectSource = !this.selectSource;
@@ -61,12 +88,22 @@ public class TowersOfHanoi extends AppCompatActivity
         else
         {
             View diskToPlace = this.holdingZone.getChildAt(0);
-            this.holdingZone.removeViewAt(0);
-            this.tower2.addView(diskToPlace);
-            this.setTowerButtonText("SOURCE");
-            this.selectSource = !this.selectSource;
+            View currentTop = tower.getChildAt(0);
+            if(currentTop == null || diskToPlace.getWidth() < currentTop.getWidth())
+            {
+                this.holdingZone.removeViewAt(0);
+                tower.addView(diskToPlace,0);
+                this.setTowerButtonText("SOURCE");
+                this.selectSource = !this.selectSource;
+
+                if(this.tower2.getChildCount() == 3)
+                {
+                    Toast t= Toast.makeText(this, "WINNER!!!!!", Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.TOP, 0, 0);
+                    t.show();
+                }
+            }
         }
-        //here
 
         //this.selectSource = this.selectSource?false:true;
 
